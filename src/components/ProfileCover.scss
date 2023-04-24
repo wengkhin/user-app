@@ -1,0 +1,45 @@
+@import "../Global";
+
+.profileCover {
+  display: flex;
+  flex-direction: column;
+
+  .profileWrapper {
+    padding: 25px 200px 25px 200px;
+    background-color: $aqua;
+    height: 105px;
+    display: flex;
+    gap: 20px;
+
+    .actionWrapper {
+      margin-top: auto;
+
+      > button {
+        margin-right: 10px;
+      }
+    }
+
+    .infoWrapper {
+      margin-top: auto;
+
+      .contentWrapper {
+        > .fullname {
+          color: $white;
+          margin-bottom: 0;
+        }
+
+        > .lastOnline {
+          color: $white;
+        }
+      }
+    }
+
+    .pictureWrapper > .avatar {
+      width: 148px;
+    }
+  }
+
+  .whitespace {
+    height: 100px;
+  }
+}

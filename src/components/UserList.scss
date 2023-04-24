@@ -1,0 +1,71 @@
+.dataList {
+  display: flex;
+  flex-direction: column;
+
+  .item {
+    &.date,
+    &.gender {
+      width: 10%;
+    }
+
+    &.name {
+      width: 30%;
+    }
+
+    &.country {
+      width: 20%;
+    }
+
+    &.email {
+      width: 30%;
+      text-align: right;
+    }
+  }
+
+  .itemsWrapper {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .titles {
+    color: #bcbcbc;
+    .item {
+      &.date {
+        padding-left: 23px;
+      }
+
+      &.email {
+        padding-right: 23px;
+      }
+    }
+  }
+
+  .content {
+    .item {
+      &.date,
+      &.gender,
+      &.email {
+        color: #bcbcbc;
+      }
+
+      &.name {
+        font-weight: 510;
+      }
+
+      &.gender {
+        text-transform: capitalize;
+      }
+    }
+
+    .row {
+      margin: 20px 0 20px 0;
+      box-shadow: rgba(17, 12, 46, 0.15) 0px 0px 13px 0px;
+      border-radius: 10px;
+      cursor: pointer;
+
+      .itemsWrapper {
+        padding: 25px;
+      }
+    }
+  }
+}
