@@ -9,21 +9,6 @@ body {
   padding: 0 10% 0 10%;
   display: flex;
   flex-direction: column;
-
-  .searchWrapper {
-    display: flex;
-    justify-content: end;
-    margin: 0 0 50px 0;
-
-    .searchBox {
-      width: 200px;
-      padding-left: 10px;
-      height: 30px;
-      color: $grey;
-      border-radius: 6px;
-      border: 1px solid $grey;
-    }
-  }
 }
 
 button {
@@ -51,7 +36,7 @@ button {
   }
 }
 
-.userDetail {
+.descriptionList {
   dt {
     float: left;
     width: 90px;

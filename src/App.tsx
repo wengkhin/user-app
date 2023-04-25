@@ -2,34 +2,53 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import * as moment from "moment";
 
-import { Footer, NavBar, ProfileCover, Modal, UserList } from "./components";
+import {
+  Footer,
+  NavBar,
+  ProfileCover,
+  Modal,
+  UserList,
+  SearchBar,
+} from "./components";
 import { User, listUsersURL } from "./Global";
 import "./App.scss";
 
 function App() {
+  // Users that are currently displayed. Use for filtering purposes
   const [shownUsers, setShownUsers] = useState<User[]>();
+  // All users fetched from API
   const [users, setUsers] = useState<User[]>();
-
+  // Targeted user to be displayed on modal
   const [targetUser, setTargetUser] = useState<User | undefined>();
-
+  // For searchBox
   const [query, setQuery] = useState<string>();
 
   useEffect(() => {
     fetchUsers();
   }, []);
 
+  // Perform users filter when query provided
+  // Convert all query and data to lower case then
+  // Filter by full_name, gender, country, email and createdOn
   useEffect(() => {
     if (!users) return;
+
+    if (query.length === 0) {
+      setShownUsers(users);
+      return;
+    }
+
+    const lowerCaseQuery = query.toLowerCase();
 
     const newShownUsers = users.filter((user) => {
       const createdOn = moment(user.created_on).format("D MMM Y");
 
       return (
-        user.full_name.includes(query) ||
-        user.gender.includes(query) ||
-        user.country.includes(query) ||
-        user.email.includes(query) ||
-        createdOn.includes(query)
+        user.full_name.toLowerCase().includes(lowerCaseQuery) ||
+        user.gender.toLowerCase().includes(lowerCaseQuery) ||
+        user.country.toLowerCase().includes(lowerCaseQuery) ||
+        user.email.toLowerCase().includes(lowerCaseQuery) ||
+        createdOn.toLowerCase().includes(lowerCaseQuery)
       );
     });
 
@@ -67,9 +86,14 @@ function App() {
     setTargetUser(user);
   }
 
-  function prepDLList() {
+  function handleSearchBarQueryChange(query: string) {
+    setQuery(query);
+  }
+
+  // Generate description list for modal
+  function prepDescriptionList() {
     return (
-      <dl className="userDetail">
+      <dl className="descriptionList">
         <dt>Date</dt>
         <dd>{moment(targetUser.created_on).format("D MMM Y")}</dd>
         <dt>Status</dt>
@@ -89,16 +113,7 @@ function App() {
       <NavBar />
       <ProfileCover />
       <div className="container">
-        <div className="searchWrapper">
-          <input
-            type="text"
-            className="searchBox"
-            placeholder="Search query goes here!"
-            onChange={(e) => {
-              setQuery(e.target.value);
-            }}
-          />
-        </div>
+        <SearchBar handleQueryOnChange={handleSearchBarQueryChange} />
         {shownUsers ? (
           <UserList users={shownUsers} handleRowOnClick={handleTargetedUser} />
         ) : (
@@ -109,7 +124,7 @@ function App() {
           <Modal
             title={targetUser.full_name}
             handleCloseOnClick={handleTargetedUser}
-            content={prepDLList()}
+            content={prepDescriptionList()}
           />
         )}
       </div>

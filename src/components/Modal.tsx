@@ -21,7 +21,7 @@ export function Modal(props: ModalProps) {
           </div>
           <div className="exit">
             <span
-              className="exitButton"
+              className="button"
               onClick={() => handleCloseOnClick(undefined)}
             >
               x
